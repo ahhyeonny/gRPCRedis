@@ -1,4 +1,5 @@
 ﻿using Grpc.Net.Client;
+using System.Windows;
 using System.Windows.Input;
 
 namespace RedisClient
@@ -46,7 +47,11 @@ namespace RedisClient
             using var channel = GrpcChannel.ForAddress("http://localhost:5260");
             var client = new Greeter.GreeterClient(channel);
             var reply = await client.AddUserAsync(new UserInfo { Name = InputName, Email = InputEmail, Id = InputId, Password = InputPassword });
-            SaveResult = "Greeting: " + reply.Message;
+
+            if (reply.Message == "Sucess")
+                MessageBox.Show("Sucess to Save User Information.", "Sucess", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
+                MessageBox.Show("Failed to Save User Information.", "Fail", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
