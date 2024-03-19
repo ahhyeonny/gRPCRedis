@@ -1,6 +1,6 @@
 using Grpc.Core;
 using GrpcService;
-using GrpcService.model;
+using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
 using Polly;
 using RedisLibrary;
@@ -8,9 +8,8 @@ using StackExchange.Redis;
 
 namespace GrpcService.Services
 {
-    public class GreeterService : Greeter.GreeterBase
+    public class GreeterService 
     {
-        public List<QueueItem> QueueItems = new List<QueueItem>();
         private readonly ILogger<GreeterService> _logger;
         private IQueue _queue = null;
         public GreeterService(ILogger<GreeterService> logger)
@@ -24,20 +23,13 @@ namespace GrpcService.Services
             _queue = new Queue(connectionFactory);
         }
 
-        public override Task<HelloReply> AddUser(UserInfo request, ServerCallContext context)
+        public async Task<string> EnqueueAsync(string userInfo)
         {
-            //queueø° request ¿˙¿Â
-            var userInfo = JoinUserInfo(request);
-            if(_queue == null)
-                return Task.FromResult(new HelloReply { Message = "Fail" });
-
             _queue.Enqueue(userInfo);
-            return Task.FromResult(new HelloReply { Message = "Sucess"});
+            await Task.CompletedTask;
+            return "Sucess";
         }
 
-        public static string JoinUserInfo(UserInfo userInfo)
-        {
-            return $"ID : {userInfo.Id}, Name : {userInfo.Name}, Email : {userInfo.Email}, Password : {userInfo.Password}";
-        }
+
     }
 }
