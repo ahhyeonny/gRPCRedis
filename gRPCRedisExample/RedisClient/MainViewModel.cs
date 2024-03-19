@@ -47,7 +47,11 @@ namespace RedisClient
             using var channel = GrpcChannel.ForAddress("http://localhost:5260");
             var client = new Greeter.GreeterClient(channel);
             var reply = await client.AddUserAsync(new UserInfo { Name = InputName, Email = InputEmail, Id = InputId, Password = InputPassword });
+            DisplayResult(reply);
+        }
 
+        private void DisplayResult(HelloReply reply)
+        {
             if (reply.Message == "Sucess")
                 MessageBox.Show("Sucess to Save User Information.", "Sucess", MessageBoxButton.OK, MessageBoxImage.Information);
             else

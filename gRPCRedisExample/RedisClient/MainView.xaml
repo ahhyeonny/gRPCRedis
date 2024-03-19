@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" >
             <StackPanel HorizontalAlignment="Center">
-                <Label Content="회원 가입"/>
+                <Label Content="회원 정보"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
