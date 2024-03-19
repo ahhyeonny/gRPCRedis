@@ -23,11 +23,19 @@ namespace GrpcService.Services
             _queue = new Queue(connectionFactory);
         }
 
-        public async Task<string> EnqueueAsync(string userInfo)
+        public async Task<bool> EnqueueAsync(string userInfo)
         {
-            _queue.Enqueue(userInfo);
+            try
+            {
+                _queue.Enqueue(userInfo);
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
             await Task.CompletedTask;
-            return "Sucess";
+            return true;
         }
 
 

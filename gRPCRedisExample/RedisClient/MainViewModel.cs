@@ -52,8 +52,8 @@ namespace RedisClient
 
         private void DisplayResult(HelloReply reply)
         {
-            if (reply.Message == "Sucess")
-                MessageBox.Show("Sucess to Save User Information.", "Sucess", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (reply.Message == "Success")
+                MessageBox.Show("Success to Save User Information.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show("Failed to Save User Information.", "Fail", MessageBoxButton.OK, MessageBoxImage.Error);
         }
