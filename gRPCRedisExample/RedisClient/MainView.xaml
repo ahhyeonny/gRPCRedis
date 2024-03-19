@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RedisClient"
         mc:Ignorable="d"
-        Title="MainView" Height="450" Width="800">
-    <Grid>
+        Title="MainView" Height="245" Width="837">
+    <Grid Height="225" VerticalAlignment="Top" Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
@@ -15,7 +15,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" >
             <StackPanel HorizontalAlignment="Center">
                 <Label Content="회원 가입"/>
             </StackPanel>
@@ -82,16 +82,7 @@
                 <ColumnDefinition Width="600" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label
-                Grid.Column="0"
-                Content="Result">
-            </Label>
-            <TextBox
-                IsReadOnly="True"
-                Grid.Column="1"
-                Width="Auto"
-                Text="{Binding SaveResult}"/>
-            <Button
+            <Button 
                 Grid.Column="2"
                 Command="{Binding InputCommand}"
                 Content="Input"/>
