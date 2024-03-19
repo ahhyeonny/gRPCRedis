@@ -26,11 +26,9 @@ namespace GrpcService.Handler
         public async Task<Option<string>> Handle(AddUserRequest request, CancellationToken cancellationToken)
         {
             var entity = JoinUserInfo(request.UserInfo);
-            var result = await _greeterService.EnqueueAsync(entity);
-            if (result is null)
-                return Option<string>.None;
+            await _greeterService.EnqueueAsync(entity);
 
-            return Option<string>.Some(result);
+            return Option<string>.Some("Success");
         }
 
         public static string JoinUserInfo(UserInfo userInfo)

@@ -14,7 +14,6 @@
     <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
     <PackageReference Include="LanguageExt.Core" Version="4.4.8" />
     <PackageReference Include="MediatR" Version="12.2.0" />
-    <PackageReference Include="Option" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>

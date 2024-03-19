@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using GrpcService.Handler;
+using LanguageExt;
 using MediatR;
 
 namespace GrpcService.Services
@@ -16,7 +17,7 @@ namespace GrpcService.Services
         {
             //queue에 request 저장
             var result = await _mediator.Send(new AddUserRequest(request));
-            if (result == null)
+            if (result == Option<string>.None)
                 return new HelloReply { Message = "Fail" };
 
             return new HelloReply { Message = "Success" };
