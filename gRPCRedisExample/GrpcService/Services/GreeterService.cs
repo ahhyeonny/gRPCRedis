@@ -21,13 +21,7 @@ namespace GrpcService.Services
             RedisLibrary.IConfiguration configuration = new Configuration(address, "redis-test");
             IConnectionFactory connectionFactory = new ConnectionFactory(configuration);
 
-            var retryPolicy = Policy.Handle<RedisException>()
-                .Retry(3, (exception, retryCount) => // 최대 재시도 횟수 및 재시도 시 로그 기록
-                {
-                    _logger.LogWarning($"Redis 연결 시도 {retryCount}번 실패: {exception.Message}");
-                });
-
-            _queue = retryPolicy.Execute(() => new Queue(connectionFactory));
+            _queue = new Queue(connectionFactory);
         }
 
         public override Task<HelloReply> AddUser(UserInfo request, ServerCallContext context)
@@ -43,7 +37,7 @@ namespace GrpcService.Services
 
         public static string JoinUserInfo(UserInfo userInfo)
         {
-            return $"{userInfo.Id},{userInfo.Name},{userInfo.Email},{userInfo.Password}";
+            return $"ID : {userInfo.Id}, Name : {userInfo.Name}, Email : {userInfo.Email}, Password : {userInfo.Password}";
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using Polly;
+using StackExchange.Redis;
 
 namespace RedisLibrary
 {
@@ -19,7 +20,14 @@ namespace RedisLibrary
 
         public IConnectionMultiplexer CreateConnection()
         {
-            return ConnectionMultiplexer.Connect(Configuration.GetAddress());
+            var retryPolicy = Policy
+                .Handle<RedisConnectionException>()
+                .Retry(3, (exception, retryCount) =>
+                {
+                    Console.WriteLine($"Redis 연결 시도 {retryCount}번 실패: {exception.Message}");
+                });
+
+            return retryPolicy.Execute(() => ConnectionMultiplexer.Connect(Configuration.GetAddress()));
         }
     }
 }
