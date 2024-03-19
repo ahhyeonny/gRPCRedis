@@ -40,7 +40,6 @@ namespace RedisClient
         public MainViewModel()
         {
             InputCommand = new DelegateCommand(InputCommandAction);
-
         }
         private async void InputCommandAction()
         {
