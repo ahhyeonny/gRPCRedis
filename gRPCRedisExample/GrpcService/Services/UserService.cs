@@ -3,10 +3,11 @@ using GrpcService.Handler;
 using GrpcService.Request;
 using LanguageExt;
 using MediatR;
+using Infrastructure.Grpc;
 
 namespace GrpcService.Services
 {
-    public class UserService : Greeter.GreeterBase
+    public class UserService : GrpcCommunication.GrpcCommunicationBase
     {
         private readonly IMediator _mediator;
 
@@ -14,14 +15,14 @@ namespace GrpcService.Services
         {
             _mediator = mediator;
         }
-        public override async Task<HelloReply> AddUser(UserInfo request, ServerCallContext context)
+        public override async Task<GrpcCommunicationResult> AddUser(UserInfo request, ServerCallContext context)
         {
             //queue에 request 저장
             var result = await _mediator.Send(new UserRequest(request));
             if (result == Option<string>.None)
-                return new HelloReply { Message = "Fail" };
+                return new GrpcCommunicationResult { Message = "Fail" };
 
-            return new HelloReply { Message = "Success" };
+            return new GrpcCommunicationResult { Message = "Success" };
         }
     }
 }

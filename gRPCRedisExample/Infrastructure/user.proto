@@ -1,13 +1,13 @@
 syntax = "proto3";
 
-option csharp_namespace = "GrpcService";
+option csharp_namespace = "Infrastructure.Grpc";
 
-package greet;
+package grpc;
 
 // The greeting service definition.
-service Greeter {
+service GrpcCommunication {
   // Sends a greeting
-  rpc AddUser (UserInfo) returns (HelloReply);
+  rpc AddUser (UserInfo) returns (GrpcCommunicationResult);
 }
 
 message UserInfo {
@@ -17,6 +17,6 @@ message UserInfo {
   string password = 4;
 }
 // The response message containing the greetings.
-message HelloReply {
+message GrpcCommunicationResult {
 	string message = 1;
 }

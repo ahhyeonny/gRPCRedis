@@ -2,6 +2,7 @@
 using MediatR;
 using LanguageExt;
 using GrpcService.Request;
+using Infrastructure.Grpc;
 
 namespace GrpcService.Handler
 {

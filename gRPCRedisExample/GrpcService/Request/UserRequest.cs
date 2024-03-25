@@ -1,5 +1,6 @@
 ﻿using LanguageExt;
 using MediatR;
+using Infrastructure.Grpc;
 
 namespace GrpcService.Request
 {
