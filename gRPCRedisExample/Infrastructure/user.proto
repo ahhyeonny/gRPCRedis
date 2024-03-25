@@ -9,6 +9,7 @@ service GrpcCommunication {
   // Sends a greeting
   rpc AddUser (UserInfo) returns (GrpcCommunicationResult);
   rpc DequeueUser (Empty) returns (RedisDeleteResult);
+  rpc GetAllUsers (Empty) returns (UserList);
 }
 
 message UserInfo {
@@ -23,6 +24,10 @@ message GrpcCommunicationResult {
 }
 
 message RedisDeleteResult{
+	string message = 1;
+}
+
+message UserList{
 	string message = 1;
 }
 

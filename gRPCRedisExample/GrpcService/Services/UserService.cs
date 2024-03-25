@@ -31,5 +31,11 @@ namespace GrpcService.Services
             var result = await _mediator.Send(new DequeueUserCommand());
             return new RedisDeleteResult { Message = result };
         }
+        public override async Task<UserList> GetAllUsers(Empty request, ServerCallContext context)
+        {
+            //queue 전체 조회
+            var result = await _mediator.Send(new GetAllUsersCommand());
+            return new UserList { Message = result };
+        }
     }
 }

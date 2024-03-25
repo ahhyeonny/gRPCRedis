@@ -14,9 +14,10 @@
             <RowDefinition Height="40" /><!--3 Email-->
             <RowDefinition Height="40" /><!--4 Password-->
             <RowDefinition Height="40" /><!--5 input button-->
-            <RowDefinition Height="40" /><!--6 제목:회원정보 리스트-->
-            <RowDefinition Height="200" /><!--7 회원정보 리스트-->
-            <RowDefinition Height="40" /><!--8 Delete button-->
+            <RowDefinition Height="40" /><!--6 공백-->
+            <RowDefinition Height="40" /><!--7 제목:회원정보 리스트-->
+            <RowDefinition Height="200" /><!--8 회원정보 리스트-->
+            <RowDefinition Height="40" /><!--9 Delete button-->
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" >
             <StackPanel HorizontalAlignment="Center">
@@ -82,9 +83,13 @@
         <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
+            <Button Grid.Column="1"
+                    Margin="0,4,4,0"
+                    Command="{Binding DeleteCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="Dequeue"/>
             <Button 
                 Grid.Column="2"
                 Margin="0,4,0,0"
@@ -92,11 +97,14 @@
                 Content="Input"/>
         </Grid>
         <Grid Grid.Row="6">
+            <StackPanel HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="7">
             <StackPanel HorizontalAlignment="Center">
                 <Label Content="회원 정보 리스트"/>
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="7">
+        <Grid Grid.Row="8">
             <DataGrid Grid.Column="0"
                       Grid.Row="4"
                       HorizontalAlignment="Stretch"
@@ -104,11 +112,10 @@
                       AlternatingRowBackground="#f2f2f2"
                       AutoGenerateColumns="False"
                       BorderBrush="#000"
-                      BorderThickness="1"
+                      BorderThickness="0.5"
                       CanUserAddRows="False"
-                      FontWeight="Bold"
                       Foreground="#525252"
-                      ItemsSource="{Binding Path=UserInfos}"
+                      ItemsSource="{Binding Path=UserDatas}"
                       RowBackground="#fff"
                       ScrollViewer.CanContentScroll="True"
                       ScrollViewer.HorizontalScrollBarVisibility="Visible"
@@ -134,20 +141,16 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <Grid Grid.Row="8">
+        <Grid Grid.Row="9">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1"
+            <Button Grid.Column="2"
                     Margin="0,4,4,0"
                     Command="{Binding RefreshCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Content="Refresh"/>
-            <Button Grid.Column="2"
-                    Margin="0,4,0,0"
-                    Command="{Binding DeleteCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="Dequeue"/>
         </Grid>
     </Grid>
 </Window>
