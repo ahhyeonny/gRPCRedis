@@ -38,6 +38,20 @@ namespace GrpcService.Services
             return true;
         }
 
+        public async Task<bool> DequeueAsync(string userInfo)
+        {
+            try
+            {
+                _queue.Remove(userInfo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+            await Task.CompletedTask;
+            return true;
+        }
 
     }
 }

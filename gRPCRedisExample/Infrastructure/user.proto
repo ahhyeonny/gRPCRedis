@@ -8,6 +8,7 @@ package grpc;
 service GrpcCommunication {
   // Sends a greeting
   rpc AddUser (UserInfo) returns (GrpcCommunicationResult);
+  rpc DeleteUser (UserInfo) returns (RedisDeleteResult);
 }
 
 message UserInfo {
@@ -18,5 +19,9 @@ message UserInfo {
 }
 // The response message containing the greetings.
 message GrpcCommunicationResult {
+	string message = 1;
+}
+
+message RedisDeleteResult{
 	string message = 1;
 }

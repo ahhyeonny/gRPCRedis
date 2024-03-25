@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RedisClient"
         mc:Ignorable="d"
-        Title="MainView" Height="245" Width="837">
-    <Grid Height="225" VerticalAlignment="Top" Margin="4">
+        Title="MainView" Width="837">
+    <Grid VerticalAlignment="Top" Margin="4">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="40" /><!--0 제목:회원정보-->
+            <RowDefinition Height="40" /><!--1 Name-->
+            <RowDefinition Height="40" /><!--2 Id-->
+            <RowDefinition Height="40" /><!--3 Email-->
+            <RowDefinition Height="40" /><!--4 Password-->
+            <RowDefinition Height="40" /><!--5 input button-->
+            <RowDefinition Height="40" /><!--6 제목:회원정보 리스트-->
+            <RowDefinition Height="200" /><!--7 회원정보 리스트-->
+            <RowDefinition Height="40" /><!--8 Delete button-->
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" >
             <StackPanel HorizontalAlignment="Center">
@@ -78,14 +81,73 @@
         </Grid>
         <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="600" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" />
             </Grid.ColumnDefinitions>
             <Button 
                 Grid.Column="2"
+                Margin="0,4,0,0"
                 Command="{Binding InputCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Content="Input"/>
+        </Grid>
+        <Grid Grid.Row="6">
+            <StackPanel HorizontalAlignment="Center">
+                <Label Content="회원 정보 리스트"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="7">
+            <DataGrid Grid.Column="0"
+                      Grid.Row="4"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      AlternatingRowBackground="#f2f2f2"
+                      AutoGenerateColumns="False"
+                      BorderBrush="#000"
+                      BorderThickness="1"
+                      CanUserAddRows="False"
+                      FontWeight="Bold"
+                      Foreground="#525252"
+                      ItemsSource="{Binding Path=UserInfos}"
+                      RowBackground="#fff"
+                      ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      SelectedItem="{Binding Path=SelectUser}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Path='Id'}"
+                                        Header="Id"
+                                        Width="*"
+                                        IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path='Name'}"
+                                        Header="Name"
+                                        Width="*"
+                                        IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path='Email'}"
+                                        Header="Email"
+                                        Width="2*"
+                                        IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Path='Password'}"
+                                        Header="Password"
+                                        Width="*"
+                                        IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1"
+                    Margin="0,4,4,0"
+                    Command="{Binding RefreshCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="Refresh"/>
+            <Button Grid.Column="2"
+                    Margin="0,4,0,0"
+                    Command="{Binding DeleteCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Content="Delete"/>
         </Grid>
     </Grid>
 </Window>

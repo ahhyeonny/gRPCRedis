@@ -7,22 +7,22 @@ using GrpcService.Command;
 
 namespace GrpcService.Handler
 {
-    public class AddUserHandler : IRequestHandler<AddUserCommand, Option<string>>
+    public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, Option<string>>
     {
         private readonly RedisService _redisService;
 
-        public AddUserHandler(RedisService redisService)
+        public DeleteUserHandler(RedisService redisService)
         {
             _redisService = redisService;
         }
 
-        public async Task<Option<string>> Handle(AddUserCommand command, CancellationToken cancellationToken)
+        public async Task<Option<string>> Handle(DeleteUserCommand command, CancellationToken cancellationToken)
         {
             var entity = JoinUserInfo(command.request);
-            return await _redisService.EnqueueAsync(entity) == true ? Option<string>.Some("Success") : Option<string>.None;
+            return await _redisService.DequeueAsync(entity) == true ? Option<string>.Some("Success") : Option<string>.None;
         }
 
-        private string JoinUserInfo(UserInfo userInfo) //private로 해야됨
+        private string JoinUserInfo(UserInfo userInfo) 
         {
             return $"{userInfo.Id},{userInfo.Name},{userInfo.Email},{userInfo.Password}";
         }
