@@ -3,7 +3,7 @@ using MediatR;
 
 namespace GrpcService.Request
 {
-    public class UserRequest : IRequest<Option<string>> //Record
+    public record class UserRequest : IRequest<Option<string>>
     {
         public UserInfo UserInfo { get; }
 
