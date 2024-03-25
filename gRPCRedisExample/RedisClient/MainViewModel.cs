@@ -95,24 +95,30 @@ namespace RedisClient
             using var channel = GrpcChannel.ForAddress("http://localhost:5260");
             var client = new GrpcCommunication.GrpcCommunicationClient(channel);
             var reply = await client.AddUserAsync(new UserInfo { Name = InputName, Email = InputEmail, Id = InputId, Password = InputPassword });
-            DisplayResult(reply.Message);
+            DisplayAddResult(reply.Message);
             await InputClear();
         }
         private async Task DeleteCommandAction()
         {
             using var channel = GrpcChannel.ForAddress("http://localhost:5260");
             var client = new GrpcCommunication.GrpcCommunicationClient(channel);
-            var reply = await client.DeleteUserAsync(new UserInfo { Name = InputName, Email = InputEmail, Id = InputId, Password = InputPassword });
-            DisplayResult(reply.Message);
+            var reply = await client.DequeueUserAsync(new UserInfo { Name = InputName, Email = InputEmail, Id = InputId, Password = InputPassword });
+            DisplayDeleteResult(reply.Message);
             await InputClear();
         }
 
-        private void DisplayResult(string replyMessage)
+        private void DisplayAddResult(string replyMessage)
         {
             if (replyMessage == "Success")
                 MessageBox.Show("Success", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             else
                 MessageBox.Show("Fail", "Fail", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void DisplayDeleteResult(string replyMessage)
+        {
+            
+            MessageBox.Show($"The deleted queue:\n{replyMessage}", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private async Task InputClear()

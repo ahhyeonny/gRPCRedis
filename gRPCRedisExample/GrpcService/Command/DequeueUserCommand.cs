@@ -5,5 +5,5 @@ using MediatR;
 
 namespace GrpcService.Command
 {
-    public record DeleteUserCommand(UserInfo request) : IRequest<Option<string>>;
+    public record DequeueUserCommand() : IRequest<string>;
 }

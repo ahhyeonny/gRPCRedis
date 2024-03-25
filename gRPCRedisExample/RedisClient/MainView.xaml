@@ -147,7 +147,7 @@
             <Button Grid.Column="2"
                     Margin="0,4,0,0"
                     Command="{Binding DeleteCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Content="Delete"/>
+                    Content="Dequeue"/>
         </Grid>
     </Grid>
 </Window>

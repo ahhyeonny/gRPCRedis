@@ -25,14 +25,11 @@ namespace GrpcService.Services
 
             return new GrpcCommunicationResult { Message = "Success" };
         }
-        public override async Task<RedisDeleteResult> DeleteUser(UserInfo request, ServerCallContext context)
+        public override async Task<RedisDeleteResult> DequeueUser(UserInfo request, ServerCallContext context)
         {
             //queue에 request 삭제
-            var result = await _mediator.Send(new DeleteUserCommand(request));
-            if (result == Option<string>.None)
-                return new RedisDeleteResult { Message = "Fail" };
-
-            return new RedisDeleteResult { Message = "Success" };
+            var result = await _mediator.Send(new DequeueUserCommand());
+            return new RedisDeleteResult { Message = result };
         }
     }
 }

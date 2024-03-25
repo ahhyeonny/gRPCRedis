@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Polly;
 using RedisLibrary;
 using StackExchange.Redis;
+using System.Data.Common;
 
 namespace GrpcService.Services
 {
@@ -38,19 +39,17 @@ namespace GrpcService.Services
             return true;
         }
 
-        public async Task<bool> DequeueAsync(string userInfo)
+        public async Task<string> DequeueAsync()
         {
-            try
-            {
-                _queue.Remove(userInfo);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return false;
-            }
+            var deletedQueue = _queue.Dequeue();
             await Task.CompletedTask;
-            return true;
+            return deletedQueue;
+        }
+
+        public async Task<IList<string>> GetAllItems()
+        {
+            var items = _queue.GetAllItems();
+            return items;
         }
 
     }
