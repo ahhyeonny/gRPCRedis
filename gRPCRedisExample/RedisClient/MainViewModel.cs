@@ -102,7 +102,7 @@ namespace RedisClient
         {
             using var channel = GrpcChannel.ForAddress("http://localhost:5260");
             var client = new GrpcCommunication.GrpcCommunicationClient(channel);
-            var reply = await client.DequeueUserAsync(new UserInfo { Name = InputName, Email = InputEmail, Id = InputId, Password = InputPassword });
+            var reply = await client.DequeueUserAsync(new Empty());
             DisplayDeleteResult(reply.Message);
             await InputClear();
         }
@@ -117,7 +117,6 @@ namespace RedisClient
 
         private void DisplayDeleteResult(string replyMessage)
         {
-            
             MessageBox.Show($"The deleted queue:\n{replyMessage}", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
