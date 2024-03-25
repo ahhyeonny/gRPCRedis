@@ -20,7 +20,7 @@ namespace GrpcService.Handler
             return await _redisService.EnqueueAsync(entity) == true ? Option<string>.Some("Success") : Option<string>.None;
         }
 
-        public static string JoinUserInfo(UserInfo userInfo) //private로 해야됨
+        private string JoinUserInfo(UserInfo userInfo) //private로 해야됨
         {
             return $"ID : {userInfo.Id}, Name : {userInfo.Name}, Email : {userInfo.Email}, Password : {userInfo.Password}";
         }
