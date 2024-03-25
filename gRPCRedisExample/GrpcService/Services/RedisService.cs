@@ -8,11 +8,11 @@ using StackExchange.Redis;
 
 namespace GrpcService.Services
 {
-    public class GreeterService 
+    public class RedisService 
     {
-        private readonly ILogger<GreeterService> _logger;
+        private readonly ILogger<RedisService> _logger;
         private IQueue _queue = null;
-        public GreeterService(ILogger<GreeterService> logger)
+        public RedisService(ILogger<RedisService> logger)
         {
             _logger = logger;
 

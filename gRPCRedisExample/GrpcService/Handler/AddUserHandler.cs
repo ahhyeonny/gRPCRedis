@@ -1,35 +1,26 @@
 ﻿using GrpcService.Services;
 using MediatR;
 using LanguageExt;
+using GrpcService.Request;
 
 namespace GrpcService.Handler
 {
-    public class AddUserRequest : IRequest<Option<string>>
+    public class AddUserHandler : IRequestHandler<UserRequest, Option<string>>
     {
-        public UserInfo UserInfo { get; }
+        private readonly Services.RedisService _redisService;
 
-        public AddUserRequest(UserInfo userInfo)
+        public AddUserHandler(Services.RedisService redisService)
         {
-            UserInfo = userInfo;
-        }
-    }
-
-    public class AddUserHandler : IRequestHandler<AddUserRequest, Option<string>>
-    {
-        private readonly GreeterService _greeterService;
-
-        public AddUserHandler(GreeterService greeterService)
-        {
-            _greeterService = greeterService;
+            _redisService = redisService;
         }
 
-        public async Task<Option<string>> Handle(AddUserRequest request, CancellationToken cancellationToken)
+        public async Task<Option<string>> Handle(UserRequest request, CancellationToken cancellationToken)
         {
             var entity = JoinUserInfo(request.UserInfo);
-            return await _greeterService.EnqueueAsync(entity) == true ? Option<string>.Some("Success") : Option<string>.None;
+            return await _redisService.EnqueueAsync(entity) == true ? Option<string>.Some("Success") : Option<string>.None;
         }
 
-        public static string JoinUserInfo(UserInfo userInfo)
+        public static string JoinUserInfo(UserInfo userInfo) //private로 해야됨
         {
             return $"ID : {userInfo.Id}, Name : {userInfo.Name}, Email : {userInfo.Email}, Password : {userInfo.Password}";
         }
