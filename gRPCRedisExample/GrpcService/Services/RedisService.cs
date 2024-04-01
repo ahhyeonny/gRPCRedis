@@ -17,7 +17,7 @@ namespace GrpcService.Services
         {
             _logger = logger;
 
-            IAddress address = new Address("127.0.0.1", "6379");
+            IAddress address = new Address("192.168.240.116", "6379");
             RedisLibrary.IConfiguration configuration = new Configuration(address, "redis-test");
             IConnectionFactory connectionFactory = new ConnectionFactory(configuration);
 
