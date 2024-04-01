@@ -24,11 +24,11 @@ namespace GrpcService.Services
             _queue = new Queue(connectionFactory);
         }
 
-        public async Task<bool> EnqueueAsync(string userInfo)
+        public async Task<bool> EnqueueAsync(UserData userData)
         {
             try
             {
-                _queue.Enqueue(userInfo);
+                _queue.Enqueue(userData.JoinUserInfo());
             }
             catch (Exception ex) 
             {
