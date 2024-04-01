@@ -96,7 +96,7 @@ namespace RedisClient
 
         private async Task InputCommandAction()
         {
-            using var channel = GrpcChannel.ForAddress("http://localhost:5260");
+            using var channel = GrpcChannel.ForAddress("http://localhost:8080");
             var client = new GrpcCommunication.GrpcCommunicationClient(channel);
             var reply = await client.AddUserAsync(new UserInfo { Name = InputName, Email = InputEmail, Id = InputId, Password = InputPassword });
             DisplayAddResult(reply.Message);
@@ -105,7 +105,7 @@ namespace RedisClient
         }
         private async Task DequeueCommandAction()
         {
-            using var channel = GrpcChannel.ForAddress("http://localhost:5260");
+            using var channel = GrpcChannel.ForAddress("http://localhost:8080");
             var client = new GrpcCommunication.GrpcCommunicationClient(channel);
             var reply = await client.DequeueUserAsync(new Empty());
             DisplayDeleteResult(reply.Message);
@@ -114,7 +114,7 @@ namespace RedisClient
         }
         private async Task RefreshCommandAction()
         {
-            using var channel = GrpcChannel.ForAddress("http://localhost:5260");
+            using var channel = GrpcChannel.ForAddress("http://localhost:8080");
             var client = new GrpcCommunication.GrpcCommunicationClient(channel);
             var reply = await client.GetAllUsersAsync(new Empty());
             await GetAllList(reply.Message);
