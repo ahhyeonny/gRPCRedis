@@ -22,9 +22,7 @@ namespace GrpcService.Handler
 
         public async Task<Option<string>> Handle(AddUserCommand command, CancellationToken cancellationToken)
         {
-            var userDTO = command.request;
-            var entity = new UserData(userDTO.Id, userDTO.Name, userDTO.Email, userDTO.Password);
-
+            var entity = _mapper.Map<UserData>(command.request);
             return await _redisService.EnqueueAsync(entity) == true ? Option<string>.Some("Success") : Option<string>.None;
         }
     }
