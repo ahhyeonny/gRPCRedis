@@ -1,5 +1,6 @@
 using Grpc.Core;
 using GrpcService;
+using GrpcService.Model;
 using MediatR;
 using Microsoft.AspNetCore.Components.Forms;
 using Polly;
