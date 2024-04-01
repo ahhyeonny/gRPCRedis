@@ -21,10 +21,5 @@ namespace GrpcService.Handler
             var entity = JoinUserInfo(command.request);
             return await _redisService.EnqueueAsync(entity) == true ? Option<string>.Some("Success") : Option<string>.None;
         }
-
-        private string JoinUserInfo(UserInfo userInfo) //private로 해야됨
-        {
-            return $"{userInfo.Id},{userInfo.Name},{userInfo.Email},{userInfo.Password}";
-        }
     }
 }
