@@ -1,6 +1,6 @@
 version: '3'
 services:
-  grpcservice:
+  mygrpcservice:
     image: mygrpcservice:latest
     restart: always
     networks:
